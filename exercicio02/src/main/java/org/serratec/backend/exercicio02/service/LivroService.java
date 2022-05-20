@@ -15,9 +15,9 @@ public class LivroService {
 		return this.livros;
 	}
 	
-	public List<Livro> idLivro(int idPosicao) {			
-		List <Livro> livroEscolhido = new ArrayList<>();
-		livroEscolhido.add(livros.get(idPosicao));		
+	public Livro idLivro(int idPosicao) {			
+		Livro livroEscolhido = new Livro();
+		livroEscolhido = livros.get(idPosicao);		
 		return livroEscolhido;
 		
 	}

@@ -26,7 +26,7 @@ public class LivroController {
 	}
 	
 	@GetMapping("/lista/{idPosicao}")
-	public List<Livro> getIdLivro(@PathVariable int idPosicao) {
+	public Livro getIdLivro(@PathVariable int idPosicao) {
 		return livroService.idLivro(idPosicao);
 	}
 	
