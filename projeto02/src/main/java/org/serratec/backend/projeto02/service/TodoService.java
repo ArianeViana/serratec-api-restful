@@ -3,16 +3,17 @@ package org.serratec.backend.projeto02.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.serratec.backend.projeto02.exception.TodoException;
 import org.serratec.backend.projeto02.model.Todo;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TodoService {
 
-//	private List<Todo> todos = Arrays.asList(new Todo(1, "Farmácia", "Comprar remédio"),
-//			new Todo(2, "Mercado", "Comprar Leite"),
-//			new Todo(3, "Estudar", "Ler capítulo 4"));
-//		
+	 //definindo uma url
+//	@Value("${url.serratec}")
+//	private String urlSerratec
+//	
 	
 	List<Todo> lista = new ArrayList<>();	
 	
@@ -36,5 +37,21 @@ public class TodoService {
 	
 	public void deletar(int idTodo) {
 		lista.remove(idTodo);
+	}
+	
+    //aqui a busca será pelo id cadastrado e não pela posição no array
+	public Todo buscarPorId(Integer idTodo) throws TodoException {
+		Todo todoNoBanco = new Todo();
+		for(Todo todo : lista) {
+			if(todo.getId().equals(idTodo)) {
+				todoNoBanco = todo;
+			}
+		}
+		
+		if(todoNoBanco.getId() == null) {
+			throw new TodoException(idTodo);
+		}
+		
+		return todoNoBanco;
 	}
 }
