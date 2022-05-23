@@ -67,11 +67,11 @@ public class ContaController {
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 	
-//	@PutMapping("transferencia/{numeroConta}")
-//	public ResponseEntity<Void> transferir(@PathVariable Integer numeroConta, @RequestParam float valor, @RequestParam Integer contaDestino) throws ContaException, OperacaoException{
-//		contaService.transferir(numeroConta, valor, contaDestino);
-//		return new ResponseEntity<>(HttpStatus.ACCEPTED);
-//	}
+	@PutMapping("/transferencia/{numeroConta}")
+	public ResponseEntity<Void> transferir(@PathVariable Integer numeroConta, @RequestParam float valor, @RequestParam Integer contaDestino) throws OperacaoException {
+		contaService.transferir(numeroConta, valor, contaDestino);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
 	
 	
 

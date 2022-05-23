@@ -116,36 +116,32 @@ public class ContaService {
 	}
 	
 	//operação transferencia
-//	public void transferir(Integer numeroConta, float valor, Integer contaDestino) throws OperacaoException, ContaException{
-//		Conta contaSaque = new Conta();
-//		Conta contaDeposito = new Conta();
-//		
-//		for(Conta conta1: listarContas()) {
-//			if (conta1.getNumeroConta().equals(numeroConta)) {
-//				contaSaque = conta1;
-//				contaSaque.setSaldo(contaSaque.getSaldo() - valor);
-//				contaRepository.save(contaSaque);
-//			}
-//		}
-//		
-//		for(Conta conta2: listarContas()) {
-//			if(conta2.getNumeroConta().equals(contaDestino)) {
-//				contaDeposito = conta2;
-//				contaDeposito.setSaldo(contaDeposito.getSaldo() + valor);
-//				contaRepository.save(contaDeposito);
-//			}
-//		}
-//		
-//		if(contaSaque.getSaldo() < valor) {
-//			throw new OperacaoException(valor);
-//		}
-//		
-//		if(contaDeposito.getNumeroConta() == null) {
-//			throw new ContaException(contaDestino);
-//		}
-//		
-//		
-//	}
-
-	
+	public void transferir(Integer numeroConta, float valor, Integer contaDestino) throws OperacaoException {
+		Conta contaSaque = new Conta();		
+		Conta contaDeposito = new Conta();
+		
+		for(Conta conta1 : listarContas()) {
+			if(conta1.getNumeroConta().equals(numeroConta)) {
+				contaSaque = conta1;
+				contaSaque.setSaldo(contaSaque.getSaldo() - valor);	
+			}
+		}
+		
+		if(contaSaque.getSaldo() < valor) {
+			throw new OperacaoException(valor);
+		}
+		
+		for(Conta conta2 : listarContas()) {
+			if(conta2.getNumeroConta().equals(contaDestino)) {
+				contaDeposito = conta2;
+				contaDeposito.setSaldo(contaSaque.getSaldo() - valor);	
+				contaRepository.save(contaDeposito);					
+			}
+		}
+		
+		contaRepository.save(contaSaque);					
+	}
 }
+		
+	
+		
