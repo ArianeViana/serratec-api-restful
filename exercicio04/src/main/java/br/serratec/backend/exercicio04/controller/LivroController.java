@@ -38,7 +38,7 @@ public class LivroController {
 	}
 	
 	@GetMapping("/lista/ordenada")
-	public ResponseEntity<List<LivroDTO>> listaOrdenada(@RequestParam String ordem) {
+	public ResponseEntity<List<LivroDTO>> listaOrdenada(@RequestParam String ordem) throws LivroException {
 		return ResponseEntity.ok(livroService.listaOrdenada(ordem));
 	}
 	

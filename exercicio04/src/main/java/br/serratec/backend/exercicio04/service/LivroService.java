@@ -57,26 +57,38 @@ public class LivroService {
 		return listaDTO;		
 	}
 	
-	public List<LivroDTO> listaOrdenada(String ordem){
+	public List<LivroDTO> listaOrdenada(String ordem) throws LivroException{
 		List<Livro> listaModel = new ArrayList<>();
 		List<LivroDTO> listaDTO = new ArrayList<>();
 		
-		if("titulo".equals(ordem)) {
-			listaModel = livroRepository.findAll(Sort.by(Order.by("tituloLivro")));
+		String nomeAtributo = null; 
+		
+		switch (ordem) { 
+		
+		case "titulo" :
+			nomeAtributo = "tituloLivro";
+		break;
+		
+		case "autor":
+			nomeAtributo = "autorLivro";
+		break;
+		
+		case "categoria":
+			nomeAtributo = "categoriaLivro";
+		break;
+		
+		case "data":
+			nomeAtributo = "dataPublicacao";
+		break;
+		
+		default:
+			throw new LivroException("Parâmetro não aceito. Os parâmetros aceitos são: titulo, autor, categoria, data.");
+			
 		}
+			
 		
-		if("autor".equals(ordem)) {
-			listaModel = livroRepository.findAll(Sort.by(Order.by("autorLivro")));
-		}
-		
-		if("categoria".equals(ordem)) {
-			listaModel = livroRepository.findAll(Sort.by(Order.by("categoriaLivro")));
-		}		
-		
-		if("data".equals(ordem)) {
-			listaModel = livroRepository.findAll(Sort.by(Order.by("dataPublicacao")));
-		}
-		
+		listaModel = livroRepository.findAll(Sort.by(Order.by(nomeAtributo)));
+
 		
 		for (Livro livroModel : listaModel) {
 			LivroDTO livroDTO = new LivroDTO();
