@@ -1,13 +1,12 @@
 package br.serratec.backend.exercicio04.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.serratec.backend.exercicio04.DTO.LivroDTO;
@@ -57,6 +56,38 @@ public class LivroService {
 		
 		return listaDTO;		
 	}
+	
+	public List<LivroDTO> listaOrdenada(String ordem){
+		List<Livro> listaModel = new ArrayList<>();
+		List<LivroDTO> listaDTO = new ArrayList<>();
+		
+		if("titulo".equals(ordem)) {
+			listaModel = livroRepository.findAll(Sort.by(Order.by("tituloLivro")));
+		}
+		
+		if("autor".equals(ordem)) {
+			listaModel = livroRepository.findAll(Sort.by(Order.by("autorLivro")));
+		}
+		
+		if("categoria".equals(ordem)) {
+			listaModel = livroRepository.findAll(Sort.by(Order.by("categoriaLivro")));
+		}		
+		
+		if("data".equals(ordem)) {
+			listaModel = livroRepository.findAll(Sort.by(Order.by("dataPublicacao")));
+		}
+		
+		
+		for (Livro livroModel : listaModel) {
+			LivroDTO livroDTO = new LivroDTO();
+			transformarModelEmDTO(livroModel, livroDTO);
+			listaDTO.add(livroDTO);
+		}		
+		
+		return listaDTO;		
+	}	
+	
+	
 	
 	public LivroDTO buscarPorId(Integer idLivro) throws LivroException {
 		Optional<Livro> livroBuscado = livroRepository.findById(idLivro);

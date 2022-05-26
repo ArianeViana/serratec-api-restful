@@ -1,5 +1,6 @@
 package br.serratec.backend.exercicio04.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -41,7 +42,7 @@ public class Livro {
 	@Column(name="livro_dt_publicacao")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past
-	private Date dataPublicacao;
+	private LocalDate dataPublicacao;
 	
 	
 	public Livro() {
@@ -81,11 +82,11 @@ public class Livro {
 		this.categoriaLivro = categoriaLivro;
 	}
 
-	public Date getDataPublicacao() {
+	public LocalDate getDataPublicacao() {
 		return dataPublicacao;
 	}
 
-	public void setDataPublicacao(Date dataPublicacao) {
+	public void setDataPublicacao(LocalDate dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
 	}
 	

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.serratec.backend.exercicio04.DTO.LivroDTO;
@@ -35,6 +36,12 @@ public class LivroController {
 	public ResponseEntity<LivroDTO> buscarPorId(@PathVariable Integer idLivro) throws LivroException{
 		return ResponseEntity.ok(livroService.buscarPorId(idLivro));
 	}
+	
+	@GetMapping("/lista/ordenada")
+	public ResponseEntity<List<LivroDTO>> listaOrdenada(@RequestParam String ordem) {
+		return ResponseEntity.ok(livroService.listaOrdenada(ordem));
+	}
+	
 	
 	@PostMapping("/salvar")
 	public ResponseEntity<String> salvar(@RequestBody LivroDTO livroDTO){
