@@ -1,6 +1,7 @@
 package br.serratec.backend.projeto04.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,6 @@ import br.serratec.backend.projeto04.DTO.CarroDTO;
 import br.serratec.backend.projeto04.DTO.CarroExibicaoDTO;
 import br.serratec.backend.projeto04.exception.CarroException;
 import br.serratec.backend.projeto04.model.Carro;
-import br.serratec.backend.projeto04.model.Servico;
 import br.serratec.backend.projeto04.repository.CarroRepository;
 import br.serratec.backend.projeto04.repository.ClienteRepository;
 import br.serratec.backend.projeto04.repository.ServicoRepository;
