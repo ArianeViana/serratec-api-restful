@@ -1,13 +1,20 @@
 package org.serratec.backend.projeto03.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="cliente")
@@ -19,9 +26,11 @@ public class Cliente {
 	private Integer idCliente;
 	
 	@Column(name="cliente_tx_nome")
+	@NotNull
 	private String nome;
 	
-	@Column(name="cliente_tx_cpf")
+	@Size(max = 11)
+	@Column(name="cliente_tx_cpf", unique=true)
 	private String cpf;
 	
 	@Column(name="cliente_tx_numero_telefone")
@@ -31,7 +40,16 @@ public class Cliente {
 	private String email; 
 	
 	@Column(name="cliente_dt_nascimento")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
+	
+	@OneToMany(mappedBy="cliente", cascade = CascadeType.REMOVE)
+	private List<Cartao> listaCartao;
+	//cascade == se excluir um cliente ele exclui as informações do cartão tbm
+	//não é mto usada, é melhor desativar o cliente(boolean para saber se está ativo ou não)
+	
+	//@OneToOne(mappedBy="cliente")
+//	private Cartao cartao
 	
 	public Cliente() {
 		
@@ -41,7 +59,7 @@ public class Cliente {
 		return idCliente;
 	}
 
-	public void setIdCliente(Integer id) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 
@@ -84,6 +102,15 @@ public class Cliente {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+
+	public List<Cartao> getListaCartao() {
+		return listaCartao;
+	}
+
+	public void setListaCartao(List<Cartao> listaCartao) {
+		this.listaCartao = listaCartao;
+	}
+	
 	
 	
 }

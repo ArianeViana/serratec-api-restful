@@ -2,6 +2,8 @@ package org.serratec.backend.projeto03.controller;
 
 import java.util.List;
 
+import org.serratec.backend.projeto03.dto.ClienteDTO;
+import org.serratec.backend.projeto03.exception.ClienteException;
 import org.serratec.backend.projeto03.model.Cliente;
 import org.serratec.backend.projeto03.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +31,13 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/buscar/{idCliente}")
-	public ResponseEntity<Cliente> buscarPorId(@PathVariable Integer idCliente){
+	public ResponseEntity<ClienteDTO> buscarPorId(@PathVariable Integer idCliente) throws ClienteException{
 		return ResponseEntity.ok(clienteService.buscarPorId(idCliente));
 	}
 	
 	@PostMapping("/salvar")
-	public ResponseEntity<Void> salvar(@RequestBody Cliente cliente){
-		clienteService.salvar(cliente);
+	public ResponseEntity<Void> salvar(@RequestBody ClienteDTO clienteDTO){
+		clienteService.salvar(clienteDTO);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
@@ -47,7 +49,7 @@ public class ClienteController {
 		
 	
 	@PutMapping("/editar/{idCliente}")
-	public ResponseEntity<Void> editar(@PathVariable Integer idCliente, @RequestBody Cliente infoEditada){
+	public ResponseEntity<Void> editar(@PathVariable Integer idCliente, @RequestBody ClienteDTO infoEditada){
 		clienteService.editar(idCliente, infoEditada);
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
